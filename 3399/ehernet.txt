@@ -1,0 +1,104 @@
+
+
+
+echo 1116 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio1116/direction
+
+echo 1117 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio1117/direction
+
+echo 1118 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio1118/direction
+
+echo 1119 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio1119/direction
+
+echo 1120 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio1120/direction
+
+echo 1121 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio1121/direction
+
+
+echo 1122 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio1122/direction
+
+
+echo 1123 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio1123/direction
+
+echo 1124 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio1124/direction
+
+echo 1125 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio1125/direction
+
+echo 1 > /sys/class/gpio/gpio1116/value
+echo 1 > /sys/class/gpio/gpio1117/value
+echo 1 > /sys/class/gpio/gpio1118/value
+echo 1 > /sys/class/gpio/gpio1119/value
+echo 1 > /sys/class/gpio/gpio1120/value
+echo 1 > /sys/class/gpio/gpio1121/value
+echo 1 > /sys/class/gpio/gpio1122/value
+echo 1 > /sys/class/gpio/gpio1123/value
+echo 1 > /sys/class/gpio/gpio1124/value
+echo 1 > /sys/class/gpio/gpio1125/value
+
+
+cat /sys/kernel/debug/gpio
+
+echo 0 > /sys/class/gpio/gpio1116/value
+echo 0 > /sys/class/gpio/gpio1117/value
+echo 0 > /sys/class/gpio/gpio1118/value
+echo 0 > /sys/class/gpio/gpio1119/value
+echo 0 > /sys/class/gpio/gpio1120/value
+echo 0 > /sys/class/gpio/gpio1121/value
+echo 0 > /sys/class/gpio/gpio1122/value
+echo 0 > /sys/class/gpio/gpio1123/value
+echo 0 > /sys/class/gpio/gpio1124/value
+echo 0 > /sys/class/gpio/gpio1125/value
+
+cat /sys/kernel/debug/gpio
+
+
+PHY_RST(GPIO3_B7)
+GRF address  0xff770000
+GRF_GPIO3_B7 0xe014
+
+io -4 -r 0xff77e014 
+
+//配制成GPIO功能
+bit[31-30]写11（使能位），bit[15~14] 写00 //将gpio3_b7 配制成GPIO, 这个读出来修改相应位
+io -4 -r 0xff77e014
+ff77e014:  00001545
+
+//配制成输出
+io -4 -w 0xff788004 0x00008000
+
+//拉高
+io -4 -w 0xff788000 0x00008000
+
+//拉低
+io -4 -w 0xff788000 0x00000000
+
+
+enable pclk_gpio3
+#io -4 -w 0xff76037c 0x0ff001a8
+rk3399_mid:/ # io -4 -r 0xff76037c
+io -4 -r 0xff76037c
+ff76037c:  000001a8
+
+#io -4 -r 0xff788000  //拉低
+ff788000:  00000000
+
+#io -4 -r 0xff788000  //拉高
+ff788000:  00008000
+
+cat /sys/kernel/debug/gpio
+GPIOs 1096-1127, platform/pinctrl, gpio3:
+gpio-1111 (                    |mdio-reset          ) out lo
+
+
+MAC controller configutation
+
+

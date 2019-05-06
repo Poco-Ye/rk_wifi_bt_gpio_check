@@ -1,0 +1,48 @@
+GPIO3_A0/SDMMC1_CLKO_dU17
+GPIO3_A1/SDMMC1_CMD_uV17
+GPIO3_A2/SDMMC1_D0_uW17
+GPIO3_A3/SDMMC1_D1_uV16
+GPIO3_A4/SDMMC1_D2_uT13
+GPIO3_A5/SDMMC1_D3_u
+
+
+
+
+GRF base 11000030
+
+GRF_GPIO3A_IOMUX  0x0030
+
+io -4 0x11000030   bit[0] ~bit[11] 555
+
+
+
+echo 96 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio96/direction
+echo 97 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio97/direction
+echo 98 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio98/direction
+echo 99 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio99/direction
+echo 100 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio100/direction
+echo 101 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio101/direction
+
+echo 1 > /sys/class/gpio/gpio96/value
+echo 1 > /sys/class/gpio/gpio97/value
+echo 1 > /sys/class/gpio/gpio98/value
+echo 1 > /sys/class/gpio/gpio99/value
+echo 1 > /sys/class/gpio/gpio100/value
+echo 1 > /sys/class/gpio/gpio101/value
+
+cat /sys/kernel/debug/gpio
+
+echo 0 > /sys/class/gpio/gpio96/value
+echo 0 > /sys/class/gpio/gpio97/value
+echo 0 > /sys/class/gpio/gpio98/value
+echo 0 > /sys/class/gpio/gpio99/value
+echo 0 > /sys/class/gpio/gpio100/value
+echo 0 > /sys/class/gpio/gpio101/value
+
+cat /sys/kernel/debug/gpio

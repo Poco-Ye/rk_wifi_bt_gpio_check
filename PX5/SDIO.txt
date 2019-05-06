@@ -1,0 +1,60 @@
+GRF BASE 0xff770000
+GPIO2_D4~D7
+gpio3_a0~a1
+
+GRF_GPIO2D_P 0x0011c
+GRF_GPIO3A_P 0x00120
+
+GRF_GPIO2D_IOMUX 0x0001c
+io -4 0xff77001c  bit[15] ~bit[8] 01 0x55
+ff77001c:  00005515
+
+
+GRF_GPIO3A_IOMUX 0x00020
+io -4 0xff770020  bit[3] ~bit[0] 01 0x5
+ff770020:  00001105
+
+pin 92 (gpio2-28): ff0d0000.rksdmmc (GPIO UNCLAIMED) function sdio0 group sdio0-bus4
+pin 93 (gpio2-29): ff0d0000.rksdmmc (GPIO UNCLAIMED) function sdio0 group sdio0-bus4
+pin 94 (gpio2-30): ff0d0000.rksdmmc (GPIO UNCLAIMED) function sdio0 group sdio0-bus4
+pin 95 (gpio2-31): ff0d0000.rksdmmc (GPIO UNCLAIMED) function sdio0 group sdio0-bus4
+pin 96 (gpio3-0): ff0d0000.rksdmmc (GPIO UNCLAIMED) function sdio0 group sdio0-cmd
+pin 97 (gpio3-1): ff0d0000.rksdmmc (GPIO UNCLAIMED) function sdio0 group sdio0-clk
+
+echo 92 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio92/direction
+
+echo 93 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio93/direction
+
+echo 94 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio94/direction
+
+echo 95 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio95/direction
+
+echo 96 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio96/direction
+
+echo 97 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio97/direction
+
+
+cat /sys/kernel/debug/gpio
+
+echo 0 > /sys/class/gpio/gpio92/value
+echo 0 > /sys/class/gpio/gpio93/value
+echo 0 > /sys/class/gpio/gpio94/value
+echo 0 > /sys/class/gpio/gpio95/value
+echo 0 > /sys/class/gpio/gpio96/value
+echo 0 > /sys/class/gpio/gpio97/value
+
+echo 1 > /sys/class/gpio/gpio92/value
+echo 1 > /sys/class/gpio/gpio93/value
+echo 1 > /sys/class/gpio/gpio94/value
+echo 1 > /sys/class/gpio/gpio95/value
+echo 1 > /sys/class/gpio/gpio96/value
+echo 1 > /sys/class/gpio/gpio97/value
+
+
+

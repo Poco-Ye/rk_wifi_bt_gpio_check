@@ -1,0 +1,107 @@
+GPIO3_A4/TSP_D0/CIF_D0/SDMMC0EXT_D0/UART1_TX
+GPIO3_A5/TSP_D1/CIF_D1/SDMMC0EXT_D1/UART1_RTS
+GPIO3_A6/TSP_D2/CIF_D2/SDMMC0EXT_D2/UART1_RX
+GPIO3_A7/TSP_D3/CIF_D3/SDMMC0EXT_D3/UART1_CTS
+
+
+GRF BASE FF10_0000
+
+GRF_GPIO3AL_IOMUX 0x0038
+GRF_GPIO3AH_IOMUX 0x003c
+
+io -4 -r 0xFF100038     //bit[12]  ~bit[14] 3bit,100 0x4
+io -4 -r 0xFF10003c     //bit[0] ~bit[8]  3bit,100 0x124
+
+//配制成GPIO
+io -4 -w 0xFF10003c 0xffff0000
+io -4 -w 0xFF100038 0xffff0000
+
+io -4 -r 0xFF100038
+io -4 -r 0xFF10003c
+
+配制输出方式
+io -4 -w 0xFF240004 0x000000f0
+
+配制高电平
+io -4 -w 0xFF240000 0x000000f0
+
+输出低电平
+io -4 -w 0xFF240000 0x00000000
+
+
+pin 100 (gpio3-4): ff120000.serial (GPIO UNCLAIMED) function uart1 group uart1-xfer
+pin 101 (gpio3-5): wireless-bluetooth gpio3:1101 function uart1 group uart1-rts
+pin 102 (gpio3-6): ff120000.serial (GPIO UNCLAIMED) function uart1 group uart1-xfer
+pin 103 (gpio3-7): ff120000.serial (GPIO UNCLAIMED) function uart1 group uart1-cts
+
+echo 1100 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio1100/direction
+echo 1101 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio1101/direction
+echo 1102 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio1102/direction
+echo 1103 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio1103/direction
+
+
+echo 1 > /sys/class/gpio/gpio1100/value
+echo 1 > /sys/class/gpio/gpio1101/value
+echo 1 > /sys/class/gpio/gpio1102/value
+echo 1 > /sys/class/gpio/gpio1103/value
+
+cat /sys/kernel/debug/gpio
+
+
+
+
+
+
+
+pin 40 (gpio1-8): ff110000.serial (GPIO UNCLAIMED) function uart0 group uart0-xfer
+pin 41 (gpio1-9): ff110000.serial (GPIO UNCLAIMED) function uart0 group uart0-xfer
+pin 42 (gpio1-10): wireless-bluetooth gpio1:42 function uart0 group uart0-rts
+pin 43 (gpio1-11): ff110000.serial (GPIO UNCLAIMED) function uart0 group uart0-cts
+
+CRU 0xff440000
+pclk_gpio1  0x0240 bit[8]
+
+io -4 -r 0xff440240
+
+//配制成GPIO
+io -4 -w 0xFF100014 0x000F0000
+io -4 -r 0xFF100014
+
+
+配制输出方式
+io -4 -w 0xFF220004 0x0000000f
+io -4 -r 0xFF220004
+
+配制高电平
+io -4 -w 0xFF220000 0x0000000f
+io -4 -r 0xFF220000
+
+输出低电平
+io -4 -w 0xFF220000 0x00000000
+io -4 -r 0xFF220000
+
+
+echo 40 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio40/direction
+echo 41 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio41/direction
+echo 42 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio42/direction
+echo 43 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio43/direction
+
+echo 1 > /sys/class/gpio/gpio40/value
+echo 1 > /sys/class/gpio/gpio41/value
+echo 1 > /sys/class/gpio/gpio42/value
+echo 1 > /sys/class/gpio/gpio43/value
+
+echo 0 > /sys/class/gpio/gpio40/value
+echo 0 > /sys/class/gpio/gpio41/value
+echo 0 > /sys/class/gpio/gpio42/value
+echo 0 > /sys/class/gpio/gpio43/value
+
+

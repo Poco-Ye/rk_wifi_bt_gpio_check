@@ -1,0 +1,26 @@
+MAC 控制器读写
+io -4 -l 0x200 0xff4e0000
+
+
+pin 44 (gpio1-12): ff4e0000.ethernet (GPIO UNCLAIMED) function gmac group mac-refclk
+pin 45 (gpio1-13): ff4e0000.ethernet (GPIO UNCLAIMED) function gmac group rmii-pins
+pin 46 (gpio1-14): ff4e0000.ethernet (GPIO UNCLAIMED) function gmac group rmii-pins
+pin 47 (gpio1-15): ff4e0000.ethernet (GPIO UNCLAIMED) function gmac group rmii-pins
+pin 48 (gpio1-16): ff4e0000.ethernet (GPIO UNCLAIMED) function gmac group rmii-pins
+pin 49 (gpio1-17): ff4e0000.ethernet (GPIO UNCLAIMED) function gmac group rmii-pins
+pin 50 (gpio1-18): ff4e0000.ethernet (GPIO UNCLAIMED) function gmac group rmii-pins
+pin 51 (gpio1-19): ff4e0000.ethernet (GPIO UNCLAIMED) function gmac group rmii-pins
+pin 52 (gpio1-20): ff4e0000.ethernet (GPIO UNCLAIMED) function gmac group rmii-pins
+pin 53 (gpio1-21): ff4e0000.ethernet (GPIO UNCLAIMED) function gmac group rmii-pins
+
+
+GRF 0xFF000000
+GPIO1_b4~C5
+GRF_GPIO1B_IOMUX_L 0x0028
+GRF_GPIO1B_IOMUX_H 0x002c
+GRF_GPIO1C_IOMUX_L 0x0030
+GRF_GPIO1C_IOMUX_H 0x0034
+
+io -4 -l 0x10 0xFF000028
+ff000028:  00003f00 00000003 0000333f 00000223
+

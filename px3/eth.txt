@@ -1,0 +1,4 @@
+gpio3_c0
+gpio3_c7
+gpio3_d0
+gpio2_d1

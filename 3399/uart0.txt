@@ -1,0 +1,32 @@
+GPIO2_C0/UART0_RX_uAE9
+GPIO2_C1/UART0_TX_uAH8
+GPIO2_C2/UART0_CTSn_uAG8
+GPIO2_C3/UART0_RTSn_u
+
+GRF base  0xFF770000
+
+GRF_GPIO2C_IOMUX 0x0e008
+
+io -4 -r 0xFF77e008 bit[7]~bit[0]  //55
+
+
+设置为GPIO 
+io -4 -w 0xFF77e008 0xffff0000
+
+设置为输出FF78_0000
+io -4 -w 0xFF780004 0x0f000f00
+
+设置为高电平
+io -4 -w 0xFF780000 0x0f000f00
+
+设置为低电平
+io -4 -w 0xFF780000 0x0f00000
+
+pull up/down
+io -4 -r 0xFF770e048
+2'b00: Z(Normal operation);
+2'b01: weak 0(pull-down);
+2'b10: Z(Normal operation);
+2'b11: weak 1(pull-up);
+
+

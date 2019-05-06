@@ -1,0 +1,39 @@
+GRF base 2000_8000
+uart0 offset 0x0070 GPIO1A0~GPIOA3
+GPIO1 base 2003_C000
+   direction: 0x0004
+   data:      0x0000
+检查 iomux 是否正常
+  io -4 0x 0x20008070
+ 最低字节为 0x55 说明 iomux 正常
+使用附件工具关闭蓝牙 bt_dbg 测试 主控的TX 端是否有方波
+导通性测试
+ 1 配置为 gpio
+  io -4 -w 0x20008070 0xffff0000
+ 2  配置为 output
+  io -4 -w 0x2003C004 0x0000000f
+ 3  输出高电平 测量 RX TX CTS RTS 是否为高电平
+    io -4 -w 0x2003C000 0x0000000f
+    输出低电平 测量 RX TX CTS RTS 是否为低电平
+    io -4 -w 0x2003C000 0x00000000
+	
+
+GRF_GPIO3D_IOMUX 0x008c
+io -4 -w 2000_8000 0xffff0000
+
+GPIO3_A1/BT_HOST_WAKE
+GRF_GPIO3A_IOMUX 0x0090 bit[2] 0
+io -4 -r 0x20008090
+
+GPIO3_B0/BT_WAKE
+GRF_GPIO3B_IOMUX 0x0094  bit[0] 0 
+io -4 -r 0x20008094
+
+cat /sys/kernel/debug/gpio  //3FD 
+
+io -4 -w 20080004
+
+internal pullup/pulldown
+io -4 -r 0x20008170
+io -4 -w 0x20008170 0x55655565
+

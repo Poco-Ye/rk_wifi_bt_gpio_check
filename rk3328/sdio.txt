@@ -1,0 +1,268 @@
+﻿GRF BASE FF10_0000
+
+GPIO1_B4/SDMMC1_CLK/GMAC_TXCLK_M1_d
+GPIO1_B5/SDMMC1_CMD/GMAC_RXCLK_M1_u
+GPIO1_B6/SDMMC1_D0/GMAC_RXD3_M1_u
+GPIO1_B7/SDMMC1_D1/GMAC_RXD2_M1_u
+GPIO1_C0/SDMMC1_D2/GMAC_TXD3_M1_u
+GPIO1_C1/SDMMC1_D3/GMAC_TXD2_M1_u
+
+sdmmc0
+iomux
+io -4 -r 0xFF100010
+ff100010:  00001555
+
+SDMMC0EXT
+GRF_GPIO3AL_IOMUX 0x0038
+GRF_GPIO3AH_IOMUX 0x003c 
+GPIO3_A4/TSP_D0/CIF_D0/SDMMC0EXT_D0/UART1_TX/USB3PHY_DEBUG4_uE2
+GPIO3_A5/TSP_D1/CIF_D1/SDMMC0EXT_D1/UART1_RTSN/USB3PHY_DEBUG5_uD1
+GPIO3_A6/TSP_D2/CIF_D2/SDMMC0EXT_D2/UART1_RX/USB3PHY_DEBUG6_uF2
+GPIO3_A7/TSP_D3/CIF_D3/SDMMC0EXT_D3/UART1_CTSN/USB3PHY_DEBUG7_u
+GPIO3_A0/TSP_VALID/CIF_VSYNC/SDMMC0EXT_CMD/SPI_CLK_M2/USB3PHY_DEBUG1/I2S2_SCLK_M1_u
+GPIO3_A2/TSP_CLK/CIF_CLKIN/SDMMC0EXT_CLK/SPI_RXD_M2/USB3PHY_DEBUG3/I2S2_SDI_M1_d
+GPIO3_A1/TSP_FAIL/CIF_HREF/SDMMC0EXT_DET/SPI_TXD_M2/USB3PHY_DEBUG2/I2S2_SDO_M1_u
+
+io -4 -r 0xFF100038
+
+io -4 -r 0xFF10003C
+130|rk3328_box:/ # io -4 -r 0xFF100038
+io -4 -r 0xFF10003Cff100038:  000030db
+
+rk3328_box:/ # io -4 -r 0xFF10003C
+ff10003c:  000000db
+
+
+//导通性测试
+io -4 0xff220000
+io -4 -w 0xff220000 0x00040000
+
+输出高电平
+io -4 -w 0xff100010  0xffff0000
+io -4 -w 0xff220004 0x010400ff
+io -4 -w 0xff220004 0x01040000
+
+输出低电平
+io -4 -w 0xff100010  0xffff0000
+io -4 -w 0xff220004 0x010400ff
+io -4 -w 0xff220004 0x010400ff
+
+
+drive strength
+GRF_GPIO1A_E 0x0210
+io -4 -r 0xFF100210
+
+
+cat /sys/kernel/debug/gpio
+
+echo 32 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio32/direction
+echo 0 > /sys/class/gpio/gpio32/value
+
+echo 33 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio33/direction
+echo 0 > /sys/class/gpio/gpio33/value
+
+echo 34 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio34/direction
+echo 0 > /sys/class/gpio/gpio34/value
+
+echo 35 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio35/direction
+echo 0 > /sys/class/gpio/gpio35/value
+
+echo 36 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio36/direction
+echo 0 > /sys/class/gpio/gpio36/value
+
+echo 37 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio37/direction
+echo 0 > /sys/class/gpio/gpio37/value
+
+echo 38 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio38/direction
+echo 0 > /sys/class/gpio/gpio38/value
+
+
+
+echo 1032 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio1032/direction
+echo 0 > /sys/class/gpio/gpio1032/value
+
+echo 1033 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio1033/direction
+echo 0 > /sys/class/gpio/gpio1033/value
+
+echo 1034 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio1034/direction
+echo 0 > /sys/class/gpio/gpio1034/value
+
+echo 1035 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio1035/direction
+echo 0 > /sys/class/gpio/gpio1035/value
+
+echo 1036 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio1036/direction
+echo 0 > /sys/class/gpio/gpio1036/value
+
+echo 1037 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio1037/direction
+echo 0 > /sys/class/gpio/gpio1037/value
+
+echo 1038 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio1038/direction
+echo 0 > /sys/class/gpio/gpio1038/value
+
+echo 1 > /sys/class/gpio/gpio1032/value
+echo 1 > /sys/class/gpio/gpio1033/value
+echo 1 > /sys/class/gpio/gpio1034/value
+echo 1 > /sys/class/gpio/gpio1035/value
+echo 1 > /sys/class/gpio/gpio1036/value
+echo 1 > /sys/class/gpio/gpio1037/value
+echo 1 > /sys/class/gpio/gpio1038/value
+
+
+
+echo 1044 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio1044/direction
+echo 0 > /sys/class/gpio/gpio1044/value
+
+echo 1045 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio1045/direction
+echo 0 > /sys/class/gpio/gpio1045/value
+
+echo 1045 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio1045/direction
+echo 0 > /sys/class/gpio/gpio1045/value
+
+echo 1046 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio1046/direction
+echo 0 > /sys/class/gpio/gpio1046/value
+
+echo 1047 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio1047/direction
+echo 0 > /sys/class/gpio/gpio1047/value
+
+echo 1048 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio1048/direction
+echo 0 > /sys/class/gpio/gpio1049/value
+
+echo 1049 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio1049/direction
+echo 0 > /sys/class/gpio/gpio1049/value
+
+echo 1 > /sys/class/gpio/gpio1044/value
+echo 1 > /sys/class/gpio/gpio1045/value
+echo 1 > /sys/class/gpio/gpio1046/value
+echo 1 > /sys/class/gpio/gpio1047/value
+echo 1 > /sys/class/gpio/gpio1048/value
+echo 1 > /sys/class/gpio/gpio1049/value
+
+echo 0 > /sys/class/gpio/gpio1044/value
+echo 0 > /sys/class/gpio/gpio1045/value
+echo 0 > /sys/class/gpio/gpio1046/value
+echo 0 > /sys/class/gpio/gpio1047/value
+echo 0 > /sys/class/gpio/gpio1048/value
+echo 0 > /sys/class/gpio/gpio1049/value
+
+cat /sys/kernel/debug/gpio
+
+WIFI_REG_ON
+echo 1051 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio1051/direction
+echo 0 > /sys/class/gpio/gpio1051/value
+
+
+
+pin 32 (gpio1-0): ff500000.rksdmmc (GPIO UNCLAIMED) function sdmmc0 group sdmmc0-bus4
+pin 33 (gpio1-1): ff500000.rksdmmc (GPIO UNCLAIMED) function sdmmc0 group sdmmc0-bus4
+pin 34 (gpio1-2): ff500000.rksdmmc (GPIO UNCLAIMED) function sdmmc0 group sdmmc0-bus4
+pin 35 (gpio1-3): ff500000.rksdmmc (GPIO UNCLAIMED) function sdmmc0 group sdmmc0-bus4
+pin 36 (gpio1-4): ff500000.rksdmmc (GPIO UNCLAIMED) function sdmmc0 group sdmmc0-cmd
+pin 38 (gpio1-6): ff500000.rksdmmc (GPIO UNCLAIMED) function sdmmc0 group sdmmc0-clk
+
+
+echo 32 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio32/direction
+
+echo 33 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio33/direction
+echo 0 > /sys/class/gpio/gpio33/value
+
+echo 34 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio34/direction
+
+echo 35 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio35/direction
+
+echo 36 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio36/direction
+
+echo 38 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio38/direction
+
+
+
+echo 1 > /sys/class/gpio/gpio32/value
+echo 1 > /sys/class/gpio/gpio33/value
+echo 1 > /sys/class/gpio/gpio34/value
+echo 1 > /sys/class/gpio/gpio35/value
+echo 1 > /sys/class/gpio/gpio36/value
+echo 1 > /sys/class/gpio/gpio38/value
+
+echo 0 > /sys/class/gpio/gpio32/value
+echo 0 > /sys/class/gpio/gpio33/value
+echo 0 > /sys/class/gpio/gpio34/value
+echo 0 > /sys/class/gpio/gpio35/value
+echo 0 > /sys/class/gpio/gpio36/value
+echo 0 > /sys/class/gpio/gpio38/value
+
+cat /sys/kernel/debug/gpio
+
+
+
+pin 44 (gpio1-12): ff510000.rksdmmc (GPIO UNCLAIMED) function sdmmc1 group sdmmc1-clk
+pin 45 (gpio1-13): ff510000.rksdmmc (GPIO UNCLAIMED) function sdmmc1 group sdmmc1-cmd
+pin 46 (gpio1-14): ff510000.rksdmmc (GPIO UNCLAIMED) function sdmmc1 group sdmmc1-bus4
+pin 47 (gpio1-15): ff510000.rksdmmc (GPIO UNCLAIMED) function sdmmc1 group sdmmc1-bus4
+pin 48 (gpio1-16): ff510000.rksdmmc (GPIO UNCLAIMED) function sdmmc1 group sdmmc1-bus4
+pin 49 (gpio1-17): ff510000.rksdmmc (GPIO UNCLAIMED) function sdmmc1 group sdmmc1-bus4
+
+
+echo 49 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio49/direction
+
+echo 48 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio48/direction
+echo 0 > /sys/class/gpio/gpio43/value
+
+echo 44 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio48/direction
+
+echo 45 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio45/direction
+
+echo 46 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio46/direction
+
+echo 47 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio47/direction
+
+
+
+echo 1 > /sys/class/gpio/gpio44/value
+echo 1 > /sys/class/gpio/gpio45/value
+echo 1 > /sys/class/gpio/gpio46/value
+echo 1 > /sys/class/gpio/gpio47/value
+echo 1 > /sys/class/gpio/gpio48/value
+echo 1 > /sys/class/gpio/gpio49/value
+
+echo 0 > /sys/class/gpio/gpio44/value
+echo 0 > /sys/class/gpio/gpio45/value
+echo 0 > /sys/class/gpio/gpio46/value
+echo 0 > /sys/class/gpio/gpio47/value
+echo 0 > /sys/class/gpio/gpio48/value
+echo 0 > /sys/class/gpio/gpio49/value
+
+cat /sys/kernel/debug/gpio
+

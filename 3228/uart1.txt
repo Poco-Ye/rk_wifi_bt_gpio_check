@@ -1,0 +1,41 @@
+﻿uart1_RX GPIO3_B5
+UART1_TX GPIO3_B6
+UART1_CTS GPIO3_A6
+UART1_RTS GPIO3_A7
+
+GRF base 1100_0000
+
+
+GRF_GPIO3A_IOMUX 0x0030
+GRF_GPIO3B_IOMUX 0x0034
+
+io -4 0x11000030
+
+1|shell@rk322x_box:/sys/class/gpio # io -4 0x11000030
+11000030:  00005555   //bit[12] ~bit[15]
+
+
+io -4 0x11000034
+
+shell@rk322x_box:/sys/class/gpio # io -4 0x11000034
+11000034:  00001400 //bit[10]~bit[13]
+
+
+1、配制成GPIO
+io -4 -w 0x11000030 0xffff0555 
+io -4 -w 0x11000034 0xffff0000
+2.	配置为 output
+io -4 -w 0x11140004 0x000060c0
+3.	输出高电平 测量 RX TX CTS RTS 是否为高电平
+io -4 -w 0x11140000 0x00060c0
+4.	输出低电平 测量 RX TX CTS RTS 是否为低电平
+io -4 -w 0x11140000 0x00000000
+
+
+1010010101010101
+
+io -4  -w 0x11000130 0xffffa555
+
+
+
+

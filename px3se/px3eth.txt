@@ -1,0 +1,27 @@
+[root@rockchip:/]# io -4 0x200080cc  第0-3, 6-15bit
+
+
+pinctrl-0 = <&gmac_rxdv &gmac_mdio &gmac_txen &gmac_clk &gmac_rxer &gmac_rxd1 &gmac_rxd0 &gmac_txd1 &gmac_txd0 &gmac_mdc>;
+
+TX_EN
+
+
+
+pin 72 (gpio2-8): 2008c000.eth gpio2:72 function gmac group rmii-pins
+
+pin 76 (gpio2-12): 2008c000.eth (GPIO UNCLAIMED) function gmac group rmii-pins
+pin 77 (gpio2-13): 2008c000.eth (GPIO UNCLAIMED) function gmac group rmii-pins
+pin 78 (gpio2-14): 2008c000.eth (GPIO UNCLAIMED) function gmac group rmii-pins
+pin 79 (gpio2-15): 2008c000.eth (GPIO UNCLAIMED) function gmac group rmii-pins
+pin 80 (gpio2-16): 2008c000.eth (GPIO UNCLAIMED) function gmac group rmii-pins
+pin 81 (gpio2-17): 2008c000.eth (GPIO UNCLAIMED) function gmac group rmii-pins
+pin 82 (gpio2-18): 2008c000.eth (GPIO UNCLAIMED) function gmac group rmii-pins
+pin 83 (gpio2-19): 2008c000.eth (GPIO UNCLAIMED) function gmac group rmii-pins
+
+pin 89 (gpio2-25): 2008c000.eth (GPIO UNCLAIMED) function gmac group rmii-pins
+
+io -4 0x200080cc
+
+io -4 0x200080d0
+
+io -4 0x200080d4

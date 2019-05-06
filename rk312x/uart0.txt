@@ -1,0 +1,64 @@
+GRF base : 0x20008000
+uart0 ==>[gpio2d2 gpio2d3 gpio0c1]
+io -4 0x200080d4
+io -4 0x200080b0
+A检查 iomux 是否正常
+io -4 0x200080d4
+4~11 bit  0x8a 说明 iomux 正常
+io -4 0x200080b0
+2~3bit 为 10 【00000108】 正常
+
+gpio 
+【注】 B C 部分的测试 请先执行 echo 1 > /sys/class/rfkill/rfkill0/state 确保先把蓝牙的供电打开
+B 使用附件工具关闭蓝牙 bt_dbg 测试 主控的TX 端是否有方波，如果无法测量到 方波 请做 C部分的 导通性测试
+C 导通性测试
+1 配置为 gpio
+io -4 -w 0x200080d4 0xffff0000
+io -4 -w 0x200080b0 0xffff0000
+2 配置为 output
+io -4 -w 0x20084004 0x2C000000
+io -4 -w 0x2007C004 0x00020000
+3 输出高电平 测量CTS RX TX RTS 是否为高电平
+io -4 -w 0x20084000 0x2C000000
+io -4 -w 0x2007C000 0x00020000
+输出低电平 测量CTS RX TX RTS 是否为低电平
+io -4 -w 0x20084000 0x00000000
+io -4 -w 0x2007C000 0x00000000
+如果 导通性 测试不过 说明 硬件 存在问题 请检查哪个地方 是否有短路 等
+
+am start -n com.android.launcher3/com.android.launcher3.Launcher
+
+io -4 -w 0x20084004 0xff000000
+
+io -4 -w 0x20080000 0xff000000
+
+io -4 -w 0x20080000 0x00000000
+
+
+PIO0_D1/UART2_CTSN_U
+io -4 -w 0x200080b4 0xffff0000
+io -4 -w 0x2007c004 0xff000000
+io -4 -w 0x2007C000 0xff000000
+io -4 -w 0x2007C000 0x00000000
+
+GPIO2_D2/CARD_RST/UART0_TX_D
+io -4 -w 0x200080b4 0xffff0000
+io -4 -w 0x20084004 0x04000000
+io -4 -w 0x20084000 0x04000000
+io -4 -w 0x20084000 0x00000000
+
+
+GPIO3_C5 BT_RST
+io -4 0x200080e0 0xffff0000
+io -4 -w 0x20088004 0x00200000
+io -4 -w 0x20088000 0x00200000
+io -4 -w 0x20088000 0x00000000
+
+GPIO2_D5/CARD_DET/UART0_CTSN_D
+io -4 -w 0x200080b4 0xffff0000
+io -4 -w 0x20084004 0x20000000
+io -4 -w 0x20084000 0x20000000
+io -4 -w 0x20084000 0x00000000
+
+
+

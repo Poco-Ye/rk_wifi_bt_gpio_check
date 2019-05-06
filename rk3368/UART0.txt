@@ -1,0 +1,75 @@
+GRF
+   base :FF77_0000
+
+
+UART0
+GPIO2_D0
+GPIO2_D1
+GPIO2_D2
+GPIO2_D3
+
+
+GPIO2 base FF79_0000
+GPIO_SWPORTA_DDR 0x04
+DR 0x00 
+GRF_GPIO2D_IOMUX 0x1c
+io -4 0xff77001c
+101 0101 0000 0000
+
+
+io -4 -w 0xff77001c 0xffff5500        //转换为gpio
+
+1111 0000 0000 0000 0000 0000 0000
+0F000000
+io -4 -w 0xff790004 0x0f000000 配置为output
+io -4 -w 0xff790000 0x0f000000  输出高电平
+
+io -4 -w 0xff790000 0x08000000  输出高电平
+
+GRF base : 0xff770000
+uart0 ==>[GPIO2_D0~GPIO1_D3]
+offset GRF_GPIO1B_IOMUX 0x001c
+gpio2 base 0xff790000 
+io -4 0xff77001c
+A检查 iomux 是否正常
+io -4 0xff77001c
+最低字节为 0x55 说明 iomux 正常
+【注】 B C 部分的测试 请先执行 echo 1 > /sys/class/rfkill/rfkill0/state 确保先把蓝牙的供电打开
+B 使用附件工具关闭蓝牙 bt_dbg 测试 主控的TX 端是否有方波，如果无法测量到 方波 请做 C部分的 导通性测试
+C 导通性测试
+1 配置为 gpio
+io -4 -w 0xff77001c 0xffff0000
+2 配置为 output
+io -4 -w 0xff790004 0x0f000000 配置为output
+3 输出高电平 测量 RX TX CTS RTS 是否为高电平
+io -4 -w 0xff790000 0x0f000000
+输出低电平 测量 RX TX CTS RTS 是否为低电平
+io -4 -w 0xff790000 0x08000000
+如果 导通性 测试不过 说明 硬件 存在问题 请检查哪个地方 是否有短路 等
+
+
+
+
+pin 88 (gpio2-24): ff180000.serial (GPIO UNCLAIMED) function uart0 group uart0-xfer
+pin 89 (gpio2-25): ff180000.serial (GPIO UNCLAIMED) function uart0 group uart0-xfer
+pin 90 (gpio2-26): ff180000.serial (GPIO UNCLAIMED) function uart0 group uart0-cts
+pin 91 (gpio2-27): wireless-bluetooth gpio2:91 function uart0 group uart0-rts
+
+
+
+echo 88 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio88/direction
+echo 89 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio89/direction
+echo 90 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio90/direction
+echo 91 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio91/direction
+
+echo 1 > /sys/class/gpio/gpio88/value
+echo 1 > /sys/class/gpio/gpio89/value
+echo 1 > /sys/class/gpio/gpio90/value
+echo 1 > /sys/class/gpio/gpio91/value
+
+
+cat /sys/kernel/debug/gpio

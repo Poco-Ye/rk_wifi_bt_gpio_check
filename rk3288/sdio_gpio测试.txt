@@ -1,0 +1,50 @@
+
+SDIO0_CMD/GPIO4_D0_u
+SDIO0_CLKOUT/GPIO4_D1_d
+2 去掉 sdio clk 和cmd 脚上的上拉电阻按照以下 操作 进行测试
+io -4 -w 0xff770048 0xffff1040 
+io -4 -w 0xff7b0004 0x03000000
+io -4 -w 0xff7b0000 0x03000000 //测量 clk 脚和 cmd 脚 是否为高
+io -4 -w 0xff7b0000 0x00000000 //测量 clk 脚和 cmd 脚 是否为低
+
+sdio_D0 ~sdio_D3 gpio4C4~gpioC7
+cmd clk GPIO4_D0 GPIO4_D1
+iomux
+配置为gpio 
+
+io -4 -w 0xff770044 0xffff0055
+io -4 -w 0xff770048 0xffff0040
+
+io -4 -w 0xff7b0004 0xffff0000
+高电平
+io -4 -w 0xff7b0000 0xffff0000
+低电平
+io -4 -w 0xff7b0000 0x00000000
+
+
+io -4 0xff770048
+
+
+drive strength
+SDIO0_D0/GPIO4_C4
+SDIO0_D1/GPIO4_C5
+SDIO0_D2/GPIO4_C6
+SDIO0_D3/GPIO4_C7
+SDIO0_CMD/GPIO4_D0
+SDIO0_CLKOUT/GPIO4_D1
+
+GRF_GPIO4C_E  0x01f8
+GRF_GPIO4D_E  0x01fc
+
+grf base 0xff7b0000
+
+io -4 -r 0xff7b01f8
+io -4 -r 0xff7b01fc
+
+2'b00: 2mA
+2'b01: 4mA
+2'b10: 8mA
+2'b11: 12mA
+
+io -4 -w 0xff7b01f8 0xff7b2a80  //8ma
+io -4 -w 0xff7b01fc 0xff70028  //8ma

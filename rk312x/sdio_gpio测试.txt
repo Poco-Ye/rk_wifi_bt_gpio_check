@@ -1,0 +1,96 @@
+GPIO0_A3   ==>cmd
+GPIO1_A0   ==>clk
+6 去掉 sdio clk 和cmd 脚上的上拉电阻按照以下 操作 进行测试
+GRF 	base  6000 8000
+GPIO0 	base  6007 C000
+GPIO1 	base  6008 0000
+1 配置为 普通 gpio
+   io -4 -w 0x600080a8  0xffff0000  //cmd 配置为普通gpio
+   io -4 -w 0x600080b8  0xffff0000  //clk 配置为普通gpio
+
+   io -4 -w 0x6007C004  0x000000ff  //
+   io -4 -w 0x60080004  0x000000ff //配置输出为 output
+
+   io -4 -w 0x6007C000  0x00000000 //输出低电平
+   io -4 -w 0x60080000  0x00000000 //输出低电平
+
+   io -4 -w 0x6007C000  0x000000ff //输出高电平
+   io -4 -w 0x60080000  0x000000ff //输出高电平
+
+
+if(cpu_is_rk316x())
+  grf_writel(((1 << 8) << 16) | (0 << 8), RK3036_GRF_SOC_CON0);
+
+
+io -4 -w 0x600080bc 0xffff4068
+io -4 -w 0x600080b8 0xffff5555
+
+
+
+
+io -4 -w 0x600080b8 0xffff0a6a
+io -4 0x600080b8
+
+io -4 -w 0x600080a8 0xffff0085
+
+io -4 0x600080a8
+
+
+
+
+io -4 0x600080a8
+
+
+
+GPIO0_B3
+
+GPIO0 	base  6007 C000
+
+=================================================================================
+
+GPIO3_C7_u WIFI_HOST_WAKE
+io -4 0x600080a8
+
+
+=================================================================================
+//sdmmc as SDIO
+
+gpio1_b7 SDMMC_CLK
+GPIO1_C0  SDMMC_CMD
+
+gpio1_C6 SDMMC_D0
+GPIO1_C3  SDMMC_D1
+gpio1_C4 SDMMC_D6
+GPIO1_C5 SDMMC_D3
+
+GRF 	base  6000 8000
+GPIO1 	base  6008 0000
+
+io -4 -w 0x600080c0  0xffff0000  //clk 配置为普通gpio
+io -4 -w 0x60080004  0x00ffff00  //配置输出为 output
+io -4 -w 0x60080000  0x00000000 //输出低电平 请量测是否为低
+io -4 -w 0x60080000  0x00ffff00 //输出高电平 请量测是否为高
+io -4 0x600080c0
+io -4 0x60080004
+io -4 0x60080000
+
+=================================================================================
+GPIO3_D3
+GRF 	base  6000 8000
+GRF_GPIO3D_IOMUX 0x00e4
+
+//配制成GPIO
+io -4 -w 0x600080e4  0xffff0000  wl_reg_on 配置为普通gpio
+io -4 -w 0x60080004  0x00ffff00 //配置输出为 output
+io -4 -w 0x60080000  0x00000000 //输出低电平 请量测是否为低
+io -4 -w 0x60080000  0x00ffff00 //输出高电平 请量测是否为高
+
+GPIO0_D6输出电平
+io -4 -w 0x600080b4 0xffff0000
+io -4 -w 0x60080004  0xff000000
+io -4 -w 0x60080000  0x00000000
+io -4 -w 0x60080000  0x00ffff00
+
+
+
+

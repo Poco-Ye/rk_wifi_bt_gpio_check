@@ -1,0 +1,48 @@
+GRF BASE FF77_0000
+GRF_GPIO4C_IOMUX 0x0044
+GRF_GPIO4D_IOMUX 0x0048
+
+一 iomux
+io -4 -r 0xFF770044
+ff770044:  00005555 bit[8]~bit[14] 55
+io -4 -r 0xFF770048
+ff770048:  00000045  bit[0] ~bit[2]
+
+二 pull down/up
+GRF_GPIO4C_P 0x0178
+io -4 -r 0xFF770178
+ff770178:  00005559  
+io -4 -w 0xFF770178 0xffff5559
+
+GRF_GPIO4D_P 0x017
+io -4 -r 0xFF77017c
+ff77017c:  00005555
+io -4 -w 0xFF77017c 0xffff5555
+
+drive strength
+GRF_GPIO4C_E 0x01f8
+io -4 -r 0xFF7701f8
+ff7701f8:  00005500
+io -4 -w 0xFF7701f8 0xffff5500
+
+GRF_GPIO4D_E 0x01fc
+io -4 -r 0xFF7701fc
+ff7701fc:  00004015
+io -4 -w 0xFF7701fc 0xffff4015
+
+CRF_IO_VSEL 0x0380
+io -4 -r 0xFF770380
+ff770380:  00000012  bit[4] 3.3V
+io -4 -r 0xFF770380 0x00ff0012
+
+GPIO4_D5_d WIFI_HOST_WAKE 
+io -4 -r 0xFF770048 
+ff770048:  00000045 bit[10] gpio
+
+input/output direction
+GPIO4 FF7B_0000
+io -4 -r 0xFF7B0004
+ff7b0004:  34080000
+
+io -4 -r 0xFF7B0000
+ff7b0000:  34080000

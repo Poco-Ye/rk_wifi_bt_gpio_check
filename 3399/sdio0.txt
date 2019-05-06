@@ -1,0 +1,125 @@
+﻿GPIO2_C4/SDIO0_D0/SPI5_RXD
+GPIO2_C5/SDIO0_D1/SPI5_TXD
+GPIO2_C6/SDIO0_D2/SPI5_CLK
+GPIO2_C7/SDIO0_D3/SPI5_CS
+GPIO2_D0/SDIO0_CMD_u
+GPIO2_D1/SDIO0_CLKOUT/TEST_CLKOUT1
+
+
+GRF base  0xFF770000
+GRF_GPIO2C_IOMUX 0x0e008
+GRF_GPIO2D_IOMUX 0x0e00c
+
+
+io -4 -r 0xff77e008     //bit[15]~bit[8] //5500
+io -4 -r 0xff77e00C     //bit[0]~bit[3] //5
+rk3399_mid:/ # io -4 0xff77e008 
+ff77e008: 00005555
+rk3399_mid:/ # io -4 0xff77e00C
+ff77e00c: 00000005
+
+导通性测试
+配制为GPIO
+io -4 -w 0xFF77e008 0x0fff0000
+io -4 -w 0xFF770e00c 0x000f0000
+
+配制为输出FF78_0000
+io -4 -w 0xFF780004 0x03f00000
+
+配制为高电平
+io -4 -w 0xFF780000 0x03f00000
+
+配制为低电平
+io -4 -w 0xFF780000 0x00000000
+
+
+GPIO2_C4/SDIO0_D0/SPI5_RXD
+
+
+GPIO0_B2(WIFI_REG_ON)
+
+io -4 -w 0xFF720004 0x04000400
+io -4 -w 0xFF720000 0x04000400
+
+io -4 -w 0xFF720004 0x00000000
+io -4 -w 0xFF720000 0x00000000
+
+
+echo 84 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio84/direction
+
+echo 85 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio85/direction
+
+echo 86 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio86/direction
+
+echo 87 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio87/direction
+
+echo 88 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio88/direction
+
+echo 89 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio89/direction
+
+echo 1 > /sys/class/gpio/gpio84/value
+echo 1 > /sys/class/gpio/gpio85/value
+echo 1 > /sys/class/gpio/gpio86/value
+echo 1 > /sys/class/gpio/gpio87/value
+echo 1 > /sys/class/gpio/gpio88/value
+echo 1 > /sys/class/gpio/gpio89/value
+
+cat /sys/kernel/debug/gpio
+
+echo 0 > /sys/class/gpio/gpio84/value
+echo 0 > /sys/class/gpio/gpio85/value
+echo 0 > /sys/class/gpio/gpio86/value
+echo 0 > /sys/class/gpio/gpio87/value
+echo 0 > /sys/class/gpio/gpio88/value
+echo 0 > /sys/class/gpio/gpio89/value
+
+cat /sys/kernel/debug/gpio
+
+
+pin 84 (gpio2-20): fe310000.dwmmc (GPIO UNCLAIMED) function sdio0 group sdio0-bus4
+pin 85 (gpio2-21): fe310000.dwmmc (GPIO UNCLAIMED) function sdio0 group sdio0-bus4
+pin 86 (gpio2-22): fe310000.dwmmc (GPIO UNCLAIMED) function sdio0 group sdio0-bus4
+pin 87 (gpio2-23): fe310000.dwmmc (GPIO UNCLAIMED) function sdio0 group sdio0-bus4
+pin 88 (gpio2-24): fe310000.dwmmc (GPIO UNCLAIMED) function sdio0 group sdio0-cmd
+pin 89 (gpio2-25): fe310000.dwmmc (GPIO UNCLAIMED) function sdio0 group sdio0-clk
+
+
+echo 1084 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio1084/direction
+
+echo 1085 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio1085/direction
+
+echo 1086 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio1086/direction
+
+echo 1087 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio1087/direction
+
+echo 1088 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio1088/direction
+
+echo 1089 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio1089/direction
+
+echo 1 > /sys/class/gpio/gpio1084/value
+echo 1 > /sys/class/gpio/gpio1085/value
+echo 1 > /sys/class/gpio/gpio1086/value
+echo 1 > /sys/class/gpio/gpio1087/value
+echo 1 > /sys/class/gpio/gpio1088/value
+echo 1 > /sys/class/gpio/gpio1089/value
+
+cat /sys/kernel/debug/gpio
+
+echo 0 > /sys/class/gpio/gpio1084/value
+echo 0 > /sys/class/gpio/gpio1085/value
+echo 0 > /sys/class/gpio/gpio1086/value
+echo 0 > /sys/class/gpio/gpio1087/value
+echo 0 > /sys/class/gpio/gpio1088/value
+echo 0 > /sys/class/gpio/gpio1089/value

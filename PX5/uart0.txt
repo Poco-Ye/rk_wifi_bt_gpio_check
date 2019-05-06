@@ -1,0 +1,27 @@
+GRF BASE 0xff770000
+gpio0_c4~c5 ~c7
+
+pin 20 (gpio0-20): ff190000.serial (GPIO UNCLAIMED) function uart1 group uar
+pin 21 (gpio0-21): ff190000.serial (GPIO UNCLAIMED) function uart1 group uar
+pin 22 (gpio0-22): ff190000.serial gpio0:22 function uart1 group uart1-cts
+
+ gpio-22  (gps_poweren         ) out hi GPIO0_C7
+
+echo 20 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio20/direction
+echo 21 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio21/direction
+echo 22 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio22/direction
+
+echo 1 > /sys/class/gpio/gpio20/value
+echo 1 > /sys/class/gpio/gpio21/value
+echo 1 > /sys/class/gpio/gpio22/value
+
+
+echo 0 > /sys/class/gpio/gpio20/value
+echo 0 > /sys/class/gpio/gpio21/value
+echo 0 > /sys/class/gpio/gpio22/value
+
+
+cat /sys/kernel/debug/gpio

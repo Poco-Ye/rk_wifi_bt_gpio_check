@@ -1,0 +1,55 @@
+GPIO2_D6/I2S_SDO1_d
+io -4 0x200080d4
+io -4 -w 0x200080d4 0x10000000
+io -4 -r 0x200080d4
+
+io -4 -w 0x20084004 0x40000000
+io -4 -r 0x20084004
+
+//low
+io -4 -w 0x20084000 0x00000000
+io -4 -r 0x20084000
+
+high
+io -4 -w 0x20084000 0x40000000
+io -4 -r 0x20084000
+
+
+pin 8 (gpio0-8): 10218000.rksdmmc (GPIO UNCLAIMED) function gpio0_sdio0 group sdio0_cmd
+pin 9 (gpio0-9): 10218000.rksdmmc (GPIO UNCLAIMED) function gpio0_sdio0 group sdio0_clk
+pin 10 (gpio0-10): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 11 (gpio0-11): 10218000.rksdmmc (GPIO UNCLAIMED) function gpio0_sdio0 group sdio0-bus-width4
+pin 12 (gpio0-12): 10218000.rksdmmc (GPIO UNCLAIMED) function gpio0_sdio0 group sdio0-bus-width4
+pin 13 (gpio0-13): 10218000.rksdmmc (GPIO UNCLAIMED) function gpio0_sdio0 group sdio0-bus-width4
+pin 14 (gpio0-14): 10218000.rksdmmc (GPIO UNCLAIMED) function gpio0_sdio0 group sdio0-bus-width4
+
+echo 8 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio8/direction
+echo 9 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio9/direction
+echo 11 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio11/direction
+echo 12 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio12/direction
+echo 13 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio13/direction
+echo 14 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio14/direction
+
+echo 1 > /sys/class/gpio/gpio8/value
+echo 1 > /sys/class/gpio/gpio9/value
+echo 1 > /sys/class/gpio/gpio11/value
+echo 1 > /sys/class/gpio/gpio12/value
+echo 1 > /sys/class/gpio/gpio13/value
+echo 1 > /sys/class/gpio/gpio14/value
+
+cat /sys/kernel/debug/gpio
+
+echo 0 > /sys/class/gpio/gpio8/value
+echo 0 > /sys/class/gpio/gpio9/value
+echo 0 > /sys/class/gpio/gpio11/value
+echo 0 > /sys/class/gpio/gpio12/value
+echo 0 > /sys/class/gpio/gpio13/value
+echo 0 > /sys/class/gpio/gpio14/value
+
+cat /sys/kernel/debug/gpio

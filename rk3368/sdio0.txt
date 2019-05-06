@@ -1,0 +1,109 @@
+﻿GPIO2_D4/SDIO0_D0_u
+GPIO2_D5/SDIO0_D1_u
+GPIO2_D6/SDIO0_D2_u
+GPIO2_D7/SDIO0_D3_u
+GPIO3_A0/SDIO0_CMD_u
+GPIO3_A1/SDIO0_CLKOUT_d
+GRF base  FF77_0000
+offset 
+GPIO2_D 0001c
+
+===> 5515
+GPIO3_A 0x00020
+==> 1445
+
+iomux
+io -4 0xff77001c
+
+io -4 0xff770020
+
+shell@rk3368_box:/ # io -4 0xff77001c
+ff77001c:  00005515
+shell@rk3368_box:/ # io -4 0xff770020
+ff770020:  00001445
+
+io -4 -w 0xff77001c 0xffff0015
+000 0000 0001 0101
+io -4 -w 0xff770020 0xffff1440
+1 0100 0100 0000
+
+GPIO2 base FF79_0000
+GPIO3 base FF7A_0000
+
+io -4 -w 0xff790004 0xf0000000
+io -4 -w 0xff7a0004 0x20001013
+
+
+配制成GPIO
+io -4 -w 0xff77001c 0xffff0015    //bit[8]~bit[15]
+io -4 -w 0xff770020 0xffff1440    //bit[0] ~bit[3]
+
+配制输出
+io -4 -w 0xff790004 0xf0000000
+io -4 -w 0xff7a0004 0x20001013
+
+输出高电平
+io -4 -w 0xff790000 0xf0000000
+io -4 -w 0xff7a0000 0x00000003
+
+输出低电平
+io -4 -w 0xff790000 0x00000000
+io -4 -w 0xff7a0000 0x00000000
+
+
+pin 92 (gpio2-28): ff0d0000.dwmmc (GPIO UNCLAIMED) function sdio0 group sdio0-bus4
+pin 93 (gpio2-29): ff0d0000.dwmmc (GPIO UNCLAIMED) function sdio0 group sdio0-bus4
+pin 94 (gpio2-30): ff0d0000.dwmmc (GPIO UNCLAIMED) function sdio0 group sdio0-bus4
+pin 95 (gpio2-31): ff0d0000.dwmmc (GPIO UNCLAIMED) function sdio0 group sdio0-bus4
+pin 96 (gpio3-0): ff0d0000.dwmmc (GPIO UNCLAIMED) function sdio0 group sdio0-cmd
+pin 97 (gpio3-1): ff0d0000.dwmmc (GPIO UNCLAIMED) function sdio0 group sdio0-clk
+
+
+echo 92 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio92/direction
+echo 93 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio93/direction
+echo 94 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio94/direction
+echo 95 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio95/direction
+echo 96 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio96/direction
+echo 97 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio97/direction
+
+echo 1 > /sys/class/gpio/gpio92/value
+echo 1 > /sys/class/gpio/gpio93/value
+echo 1 > /sys/class/gpio/gpio94/value
+echo 1 > /sys/class/gpio/gpio95/value
+echo 1 > /sys/class/gpio/gpio96/value
+echo 1 > /sys/class/gpio/gpio97/value
+
+cat /sys/kernel/debug/gpio
+
+echo 0 > /sys/class/gpio/gpio92/value
+echo 0 > /sys/class/gpio/gpio93/value
+echo 0 > /sys/class/gpio/gpio94/value
+echo 0 > /sys/class/gpio/gpio95/value
+echo 0 > /sys/class/gpio/gpio96/value
+echo 0 > /sys/class/gpio/gpio97/value
+
+cat /sys/kernel/debug/gpio
+
+
+GPIO3_A6 WIFI_HOST_WAKE
+
+
+GPIO3_A4 wifi_reg_on
+
+
+
+
+
+
+
+
+
+
+
+
