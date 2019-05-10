@@ -83,15 +83,21 @@ echo out > /sys/class/gpio/gpio139/direction
 
 
 echo 1 > /sys/class/gpio/gpio136/value
+
 echo 1 > /sys/class/gpio/gpio137/value
+
 echo 1 > /sys/class/gpio/gpio138/value
+
 echo 1 > /sys/class/gpio/gpio139/value
 
 
 cat /sys/kernel/debug/gpio
 
+
 echo 0 > /sys/class/gpio/gpio136/value
+
 echo 0 > /sys/class/gpio/gpio137/value
+
 echo 0 > /sys/class/gpio/gpio138/value
 
 
