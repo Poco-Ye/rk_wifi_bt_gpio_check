@@ -108,17 +108,33 @@ echo 0 > /sys/class/gpio/gpio138/value
 
 
 <-------------------------------------------------wifi打不开-------------------------------------------->
+电源这块一共就是3个脚
+VCC_WLIN
+WL_REG_ON
+BT_RST
 
-VCCIO_WL 供电是正常正常，由GPIO 控制
-的模块使能脚是否被正常控制到
+WIFI部分看VCC_WLIN 还有WL_REG_ON就可以了，AP6xxx 系列模块 模组外部供晶振32.768K
 
+RK312x 平台，SDIO 接口需要接外部上拉电阻，并将默认芯片的上下拉禁掉
 
+sdio0_cmd: sdio0_cmd {
 
+rockchip,pins = <MMC1_CMD>;
 
+- rockchip,pull = <VALUE_PULL_DISABLE>;
 
++ rockchip,pull = <VALUE_PULL_UPDOWN_DISABLE>;
 
+};
 
-
+这部份由pinctrl module去设置
+/*warning:don not chang the following value*/
+#define VALUE_PULL_NORMAL	0
+#define VALUE_PULL_UP		1
+#define VALUE_PULL_DOWN		2
+#define VALUE_PULL_KEEP		3
+#define VALUE_PULL_DISABLE	4 //don't set and keep pull default
+#define VALUE_PULL_DEFAULT	4 //don't set and keep pull default
 
 
 
