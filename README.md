@@ -108,12 +108,17 @@ echo 0 > /sys/class/gpio/gpio138/value
 
 
 <-------------------------------------------------wifi打不开-------------------------------------------->
+
 电源这块一共就是3个脚
+
 VCC_WLIN
+
 WL_REG_ON
+
 BT_RST
 
-WIFI部分看VCC_WLIN 还有WL_REG_ON就可以了，AP6xxx 系列模块 模组外部供晶振32.768K
+
+WIFI部分看VCC_WLIN 还有WL_REG_ON就可以了，AP6xxx 系列模块 模组外部供晶振32.768K check是否正常
 
 RK312x 平台，SDIO 接口需要接外部上拉电阻，并将默认芯片的上下拉禁掉
 
@@ -127,14 +132,10 @@ rockchip,pins = <MMC1_CMD>;
 
 };
 
-这部份由pinctrl module去设置
-/*warning:don not chang the following value*/
-#define VALUE_PULL_NORMAL	0
-#define VALUE_PULL_UP		1
-#define VALUE_PULL_DOWN		2
-#define VALUE_PULL_KEEP		3
-#define VALUE_PULL_DISABLE	4 //don't set and keep pull default
-#define VALUE_PULL_DEFAULT	4 //don't set and keep pull default
+
+RK3288 ，主控的SDIO 电平有1.8、3.3V 可配置，需要根据实际硬
+
+件(VCCIO_WL 模组的电源电压 ）来配置dts 中的：sdio_vref = <1800>;
 
 
 
