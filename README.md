@@ -38,30 +38,48 @@ io -4 -w 0xff7b0000 0x00000000
 GPIO4_C0 ~ GPIO4_C3
 
 1 配置为 gpio
+
 io -4 0xff770044 0xffff0000
+
 2 配置为 output
+
 io -4 -w 0xff7b0004 0x00ff000f
+
 3 输出高电平 测量 RX TX CTS RTS 是否为高电平
+
 io -4 -w 0xff7b0000 0x00ff0000
+
 输出低电平 测量 RX TX CTS RTS 是否为低电平
+
 io -4 -w 0xff7b0000 0x00000000
 
 pin 136 (gpio4-16): ff180000.serial (GPIO UNCLAIMED) function uart0 group uart0-xfer
+
 pin 137 (gpio4-17): ff180000.serial (GPIO UNCLAIMED) function uart0 group uart0-xfer
+
 pin 138 (gpio4-18): ff180000.serial (GPIO UNCLAIMED) function uart0 group uart0-cts
+
 pin 139 (gpio4-19): wireless-bluetooth gpio4:1139 function uart0 group uart0-rts
 
+
 echo 136 > /sys/class/gpio/export
+
 echo out > /sys/class/gpio/gpio136/direction
 
+
 echo 137 > /sys/class/gpio/export
+
 echo out > /sys/class/gpio/gpio137/direction
 
 echo 138 > /sys/class/gpio/export
+
 echo out > /sys/class/gpio/gpio138/direction
 
+
 echo 139 > /sys/class/gpio/export
+
 echo out > /sys/class/gpio/gpio139/direction
+
 
 
 echo 1 > /sys/class/gpio/gpio136/value
