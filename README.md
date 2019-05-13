@@ -107,9 +107,44 @@ echo 0 > /sys/class/gpio/gpio138/value
 正基的模组是需要接外部晶振的，需要确认是否起振或者频偏是多少，是否是达到+-10ppm 越小越好啦，还峰峰值也需要确认
 
 
+serial 20060000.serial: error:lsr=0xd9
+
+这一般是UART TX, RX 数据线没有维持在高电平导致异常
+
+Rk312x 平台，可以通过以下修改禁掉UART0 口内部的下拉，
+
+类似如下：
+
+uart0_xfer: uart0-xfer {
+
+rockchip,pins = <UART0_SIN>,
+
+<UART0_SOUT>;
+
+rockchip,pull = <VALUE_PULL_UPDOWN_DISABLE>;
+
+};
+
 <-------------------------------------------------wifi打不开-------------------------------------------->
 
-电源这块一共就是3个脚
+
+
+Echo 0 > /sys/class/rkwifi/power
+
+Echo 1 > /sys/class/rkwifi/power
+
+
+
+CONFIG_WIFI_LOAD_DRIVER_WHEN_KERNEL_BOOTUP=n
+echo 1 > /sys/class/rkwifi/driver
+
+
+外部晶体频偏，频偏比较大情况下，会出现能扫描到模块但是初始化失败，峰峰值>=0.7*VDDIO && 峰峰值 <= 1*VDDIO，频偏过大峰峰值错误会影响wifi（扫描连接热点）和蓝牙（扫描连接设备））
+
+降低sdio_clk ，降低clk可以，考虑硬件上走线；如果降低clk依然不行，考虑使用sdio单线模式,如果单线模式可以而使用4线模式不行，检查硬件上sdio_data0~sdio_data3 四根线的线序是否弄错
+
+
+电源这块一共就是3个脚，正基是分开供电
 
 VCC_WLIN
 
@@ -120,22 +155,27 @@ BT_RST
 
 WIFI部分看VCC_WLIN 还有WL_REG_ON就可以了，AP6xxx 系列模块 模组外部供晶振32.768K check是否正常
 
+
+
+
 RK312x 平台，SDIO 接口需要接外部上拉电阻，并将默认芯片的上下拉禁掉
 
 sdio0_cmd: sdio0_cmd {
 
 rockchip,pins = <MMC1_CMD>;
 
-- rockchip,pull = <VALUE_PULL_DISABLE>;
+'-' rockchip,pull = <VALUE_PULL_DISABLE>;
 
-+ rockchip,pull = <VALUE_PULL_UPDOWN_DISABLE>;
+'+' rockchip,pull = <VALUE_PULL_UPDOWN_DISABLE>;
 
 };
 
 
 RK3288 ，主控的SDIO 电平有1.8、3.3V 可配置，需要根据实际硬
 
-件(VCCIO_WL 模组的电源电压 ）来配置dts 中的：sdio_vref = <1800>;
+件(VCCIO_WL 模组的电源电压 ）来配置dts 中的：sdio_vref = <1800>;可以先量一下
+
+
 
 
 
