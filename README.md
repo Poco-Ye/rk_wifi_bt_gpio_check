@@ -129,13 +129,18 @@ rockchip,pull = <VALUE_PULL_UPDOWN_DISABLE>;
 
 
 
+WL_REG_ON电平测
+
 Echo 0 > /sys/class/rkwifi/power
 
 Echo 1 > /sys/class/rkwifi/power
 
 
 
+andorid8.1之前选择性wifi驱动在wifi service 启动之后再运行
+
 CONFIG_WIFI_LOAD_DRIVER_WHEN_KERNEL_BOOTUP=n
+
 echo 1 > /sys/class/rkwifi/driver
 
 
