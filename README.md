@@ -141,6 +141,9 @@ WifiHW  : uevent path:/sys/bus/sdio/devices/mmc2:0001:1/uevent]  -> 加载patch 
 
 
 
+driver/wireless/rockchip_wlan/rkwifi/bcmdhd/dhd_sdio.c
+
+
 WL_REG_ON电平测
 
 Echo 0 > /sys/class/rkwifi/power
