@@ -129,7 +129,7 @@ rockchip,pull = <VALUE_PULL_UPDOWN_DISABLE>;
 
 开机启动流程:
 
-wifi rfkill -> dhd 扫卡（mmc sdio）
+wifi rfkill -mmc扫卡-> dhd mmc rescan 扫卡（mmc sdio）
 
 [WifiHW  : uevent path:/sys/bus/sdio/devices/./uevent
 
