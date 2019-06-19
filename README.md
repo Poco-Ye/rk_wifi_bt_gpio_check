@@ -130,8 +130,11 @@ rockchip,pull = <VALUE_PULL_UPDOWN_DISABLE>;
 开机启动流程:
 
 wifi rfkill -> dhd 扫卡（mmc sdio）
+
 [WifiHW  : uevent path:/sys/bus/sdio/devices/./uevent
+
 WifiHW  : uevent path:/sys/bus/sdio/devices/../uevent
+
 WifiHW  : uevent path:/sys/bus/sdio/devices/mmc2:0001:1/uevent]  -> 加载patch -> wlan0[/proc/net/dev]
 
 -> wpa_supplicant(dhd和rfkill一起玩耍，起后台)-> IPC connect supplicant
